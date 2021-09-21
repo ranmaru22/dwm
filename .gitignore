@@ -6,6 +6,7 @@ tmp/
 .ccls-cache
 *.o
 dwm
+dwm.1
 
 *.rej
 *.orig
