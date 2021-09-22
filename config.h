@@ -20,10 +20,18 @@ static const char col_gray3[]       = "#879193";
 static const char col_gray4[]       = "#E4E4E8";
 static const char col_blue[]        = "#91B9C7";
 static const char col_cyan[]        = "#4d9391";
+static const char col_green[]       = "#6fb593";
+static const char col_red[]         = "#cd5c60";
+static const char col_yellow[]      = "#dbac66";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray1, col_cyan,  col_cyan  },
+	/*                   fg         bg         border   */
+	[SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]      = { col_gray1, col_cyan,  col_cyan  },
+	[SchemeStatus]   = { col_gray3, col_gray1, "#000000" }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_gray1, col_cyan,  "#000000" }, // Tagbar left selected {text,background,not used but cannot be empty}
+    [SchemeTagsNorm] = { col_gray3, col_gray1, "#000000" }, // Tagbar left unselected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { col_green, col_gray1, "#000000" }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoNorm] = { col_gray3, col_gray1, "#000000" }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* tagging */
@@ -49,9 +57,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "tall",      tile },    /* first entry is default */
-	{ "float",     NULL },    /* no layout function means floating behavior */
-	{ "[M]",       monocle },
+	{ "[|=]",      tile },    /* first entry is default */
+	{ "[<>]",     NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -81,6 +89,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+    { MODKEY,                       XK_grave,  focusmaster,    {0} },
 	{ MODKEY,                       XK_o,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
