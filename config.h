@@ -27,11 +27,11 @@ static const char *colors[][3]           = {
   /*                   fg         bg         border   */
   [SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
   [SchemeSel]      = { col_gray1, col_cyan,  col_cyan  },
-  [SchemeStatus]   = { col_gray3, col_gray1, "#000000" }, // Statusbar right {text,background,not used but cannot be empty}
-  [SchemeTagsSel]  = { col_gray1, col_cyan,  "#000000" }, // Tagbar left selected {text,background,not used but cannot be empty}
-  [SchemeTagsNorm] = { col_gray3, col_gray1, "#000000" }, // Tagbar left unselected {text,background,not used but cannot be empty}
-  [SchemeInfoSel]  = { col_green, col_gray1, "#000000" }, // infobar middle  selected {text,background,not used but cannot be empty}
-  [SchemeInfoNorm] = { col_gray3, col_gray1, "#000000" }, // infobar middle  unselected {text,background,not used but cannot be empty}
+  [SchemeStatus]   = { col_gray3, col_gray1, "#000000" }, /* Statusbar right {text,background,not used but cannot be empty} */
+  [SchemeTagsSel]  = { col_gray1, col_cyan,  "#000000" }, /* Tagbar left selected {text,background,not used but cannot be empty} */
+  [SchemeTagsNorm] = { col_gray3, col_gray1, "#000000" }, /* Tagbar left unselected {text,background,not used but cannot be empty} */
+  [SchemeInfoSel]  = { col_green, col_gray1, "#000000" }, /* infobar middle  selected {text,background,not used but cannot be empty} */
+  [SchemeInfoNorm] = { col_gray3, col_gray1, "#000000" }, /* infobar middle  unselected {text,background,not used but cannot be empty} */
 };
 
 /* tagging */
@@ -75,10 +75,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
+static const char *dmenucmd[]    = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
 static const char *passmenucmd[] = { "passmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
-static const char *pmotpcmd[] = { "passmenu-otp", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
-static const char *termcmd[] = { "alacritty", NULL };
+static const char *pmotpcmd[]    = { "passmenu-otp", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
+static const char *termcmd[]     = { "alacritty", NULL };
+static const char *lockcmd[]     = { "xsecurelock", NULL };
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
@@ -118,7 +119,8 @@ static Key keys[] = {
   TAGKEYS(                        XK_7,                      6)
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
-  { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  { MODKEY,                       XK_q,      spawn,          {.v = lockcmd} },
+  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */
